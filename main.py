@@ -32,6 +32,7 @@ def get_cookie(request: Request):
     base_url = request.base_url
     scope = request.scope
     state = request.state
+    print(client_host, client_port, headers, cookies, query_params, path_params, method, url, base_url, scope, state)
 
     return HTMLResponse(
         f"""
